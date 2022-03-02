@@ -41,7 +41,7 @@ public class CommonResponseDataAdvice implements ResponseBodyAdvice<Object>  {
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType,
                                   Class selectedConverterType, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
 
-        CommonResponse response = CommonResponse.success(o);
+        CommonResponse response = CommonResponse.success();
         if (null == o){
             return CommonResponse.success();
         } else if (o instanceof  CommonResponse){
@@ -50,6 +50,7 @@ public class CommonResponseDataAdvice implements ResponseBodyAdvice<Object>  {
             response.setData(o);
             return JSONObject.toJSONString(response);
         } else {
+            response.setData(o);
             return response;
         }
     }
