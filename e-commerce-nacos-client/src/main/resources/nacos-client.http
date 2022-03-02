@@ -1,0 +1,5 @@
+###
+GET http://localhost:8000/nacos-client/service/instance/e-commerce-nacos-client
+
+###
+GET http://localhost:8000/nacos-client/version

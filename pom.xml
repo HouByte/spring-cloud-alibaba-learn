@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.2</version>
+        <version>2.3.12.RELEASE</version>
     </parent>
     <groupId>cn.flowboot.e.commerce</groupId>
     <artifactId>E-commerce-cloud</artifactId>
@@ -16,6 +16,7 @@
     <modules>
         <module>e-commerce-common</module>
         <module>e-commerce-mvc-config</module>
+        <module>e-commerce-nacos-client</module>
     </modules>
 
 
@@ -23,9 +24,9 @@
         <!-- 工程项目版本 -->
         <E-commerce-cloud>1.0-SNAPSHOT</E-commerce-cloud>
         <!-- Spring Cloud 依赖 -->
-        <spring-cloud.version>2020.0.1</spring-cloud.version>
+        <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
         <!-- spring cloud alibaba 依赖 -->
-        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
         <!--  依赖 -->
         <lombok.version>1.16.18</lombok.version>
         <!-- commons-lang3 依赖 -->
@@ -89,20 +90,18 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
+                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <!-- spring cloud alibaba 依赖 -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
+                <version>${spring.cloud.alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <!-- lombok 工具通过在代码编译时期动态的将注解替换为具体的代码,   IDEA 需要添加 lombok 插件 -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
