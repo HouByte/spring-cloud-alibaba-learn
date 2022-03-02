@@ -8,16 +8,20 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.4.2</version>
     </parent>
-    <groupId>cn.flowboot.e-commerce</groupId>
+    <groupId>cn.flowboot.e.commerce</groupId>
     <artifactId>E-commerce-cloud</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-
     <packaging>pom</packaging>
 
+    <modules>
+        <module>e-commerce-common</module>
+        <module>e-commerce-mvc-config</module>
+    </modules>
 
 
     <properties>
+        <!-- 工程项目版本 -->
+        <E-commerce-cloud>1.0-SNAPSHOT</E-commerce-cloud>
         <!-- Spring Cloud 依赖 -->
         <spring-cloud.version>2020.0.1</spring-cloud.version>
         <!-- spring cloud alibaba 依赖 -->
@@ -62,12 +66,25 @@
         <poi.version>4.1.2</poi.version>
         <!--  velocity 依赖 -->
         <velocity.version>1.7</velocity.version>
+
     </properties>
 
 
     <!-- 项目依赖管理 父项目只是声明依赖，子项目需要写明需要的依赖(可以省略版本信息) -->
     <dependencyManagement>
         <dependencies>
+            <!-- 本项目模块 依赖 -->
+            <dependency>
+                <groupId>cn.flowboot.e.commerce</groupId>
+                <artifactId>e-commerce-common</artifactId>
+                <version>${E-commerce-cloud}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.flowboot.e.commerce</groupId>
+                <artifactId>e-commerce-mvc-config</artifactId>
+                <version>${E-commerce-cloud}</version>
+            </dependency>
+
             <!-- spring cloud 依赖 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
