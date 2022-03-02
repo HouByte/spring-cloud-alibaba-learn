@@ -70,7 +70,7 @@ public class CommonResponse<T> implements Serializable {
      * @return {@link CommonResponse }
      */
     public static  CommonResponse success(){
-        return new CommonResponse(FAIL_CODE,FAIL_MSG,null);
+        return new CommonResponse(SUCCESS_CODE,SUCCESS_MSG,null);
     }
 
     /**
@@ -80,7 +80,7 @@ public class CommonResponse<T> implements Serializable {
      * @return {@link CommonResponse }
      */
     public static  CommonResponse success( String message){
-        return new CommonResponse(FAIL_CODE,message,null);
+        return new CommonResponse(SUCCESS_CODE,message,null);
     }
 
     /**
@@ -91,7 +91,17 @@ public class CommonResponse<T> implements Serializable {
      * @return {@link CommonResponse }
      */
     public static <T> CommonResponse success(String message,T data){
-        return new CommonResponse<T>(FAIL_CODE,message,data);
+        return new CommonResponse<T>(SUCCESS_CODE,message,data);
+    }
+
+    /**
+     * <h2> success - 成功通用消息 - 数据<h2>
+     * version: 1.0 - 2022/3/2
+     * @param data 泛型数据
+     * @return {@link CommonResponse }
+     */
+    public static <T> CommonResponse success(T data){
+        return new CommonResponse<T>(SUCCESS_CODE,SUCCESS_MSG,data);
     }
 
     /**

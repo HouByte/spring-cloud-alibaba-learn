@@ -2,8 +2,11 @@ package cn.flowboot.e.commerce.advice;
 
 import cn.flowboot.e.commerce.annotation.IgnoreResponseAdvice;
 import cn.flowboot.e.commerce.vo.CommonResponse;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,35 +22,35 @@ import java.util.Objects;
  * @since: 2022/03/02
  */
 @RestControllerAdvice(value = "cn.flowboot.e.commerce")
-public class CommonResponseDataAdvice implements ResponseBodyAdvice {
+public class CommonResponseDataAdvice implements ResponseBodyAdvice<Object>  {
 
     /**
      * 判断是否需要被处理
      */
     @Override
-    public boolean supports(MethodParameter methodParameter, Class aClass) {
-        if (methodParameter.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)
-                || Objects.requireNonNull(methodParameter.getMethod()).isAnnotationPresent(IgnoreResponseAdvice.class)){
-            return false;
-        }
-        return true;
+    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
+        return !methodParameter.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)
+                && !Objects.requireNonNull(methodParameter.getMethod()).isAnnotationPresent(IgnoreResponseAdvice.class);
     }
 
     /**
      * 处理
      */
     @Override
+    @SuppressWarnings("all")
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType,
-                                  Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+                                  Class selectedConverterType, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
 
-        CommonResponse<Object> response = new CommonResponse<Object>(0,"",null);
+        CommonResponse response = CommonResponse.success(o);
         if (null == o){
-            return response;
+            return CommonResponse.success();
         } else if (o instanceof  CommonResponse){
             return  o;
-        } else {
+        } else if (o instanceof String) {
             response.setData(o);
+            return JSONObject.toJSONString(response);
+        } else {
+            return response;
         }
-        return null;
     }
 }
