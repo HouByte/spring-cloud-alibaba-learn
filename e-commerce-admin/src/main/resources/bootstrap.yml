@@ -1,0 +1,68 @@
+server:
+  port: 7001
+  servlet:
+    context-path: /admin
+spring:
+  application:
+    name: e-commerce-admin
+  security:
+    user:
+      name: admin
+      password: admin
+  cloud:
+    nacos:
+      #服务发现
+      discovery:
+        enabled: true
+        server-addr: 127.0.0.1:8848
+        namespace: e-commerce-nacos-server
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+          user:
+            name: admin
+            password: admin
+  thymeleaf:
+    check-template: false
+    check-template-location: false
+  # 被监控的应用状态变更为 DOWN、OFFLINE、UNKNOWN 时, 会自动发出告警: 实例的状态、原因、实例地址等信息
+  # 需要在 pom.xml 文件中添加 spring-boot-starter-mail 依赖
+  # 配置发送告警的邮箱服务器
+  # 但是, 这个要能连接上, 否则会报错
+  mail:
+    host: smtp.ym.163.com
+    username: no-reply@timeapi.cn
+    password: xmsssgkjyxgs2021
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 600000
+          timeout: 600000
+          writetimeout: 600000
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 25
+  # 监控告警通知
+  boot:
+    admin:
+      notify:
+        mail:
+          from: ${spring.mail.username}
+          to: ["192391297@qq.com"]
+          cc: ["192391297@qq.com"]
+#暴露端点
+management:
+  health:
+    db:
+      enabled: false
+    mail:
+      enabled: false   # 这个最好必须配置，否则如果有Spring Boot Admin 不断检测的话，可能导致邮件不能发送成功
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -12,6 +12,9 @@ spring:
         enabled: true
         server-addr: 127.0.0.1:8848
         namespace: e-commerce-nacos-server
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
       #服务配置
       ## nacos 文件名：${spring.application.name}- ${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
       config:
@@ -30,11 +33,26 @@ spring:
           group: DEFAULT_GROUP   # 默认为DEFAULT_GROUP
           refresh: true   # 是否动态刷新，默认为false
         # 扩展配置
-        extension-configs[0]:
-          data-id: file.yaml
-          group: DEFAULT_GROUP     # 默认为DEFAULT_GROUP
-          refresh: true            # 是否动态刷新，默认为false
+#        extension-configs[0]:
+#          data-id: file.yaml
+#          group: DEFAULT_GROUP     # 默认为DEFAULT_GROUP
+#          refresh: true            # 是否动态刷新，默认为false
   profiles:
     active: dev
 #flowboot:
 #  version: "1.0.0"
+
+# 暴露端点
+management:
+  health:
+    db:
+      enabled: false
+    mail:
+      enabled: false   # 这个最好必须配置，否则如果有Spring Boot Admin 不断检测的话，可能导致邮件不能发送成功
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
