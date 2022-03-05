@@ -32,7 +32,16 @@ spring:
           data-id: common.yaml # 配置文件名-Data Id
           group: DEFAULT_GROUP   # 默认为DEFAULT_GROUP
           refresh: true   # 是否动态刷新，默认为false
-
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      retries: 3
+    consumer:
+      auto-offset-reset: latest
+  zipkin:
+    sender:
+      type: kafka # 默认是 web
+    base-url: http://localhost:9411/
   profiles:
     active: dev
 #flowboot:

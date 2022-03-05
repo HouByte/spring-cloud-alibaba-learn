@@ -31,6 +31,7 @@ spring:
           data-id: common.yaml # 配置文件名-Data Id
           group: DEFAULT_GROUP   # 默认为DEFAULT_GROUP
           refresh: true   # 是否动态刷新，默认为false
+
     # 静态路由
 #    gateway:
 #      discovery:
@@ -57,6 +58,24 @@ spring:
 #            - StripPrefix=1
 #            # 它的作用和StripPrefix正相反，是在URL路径前面添加一部分的前缀 对应工程设置了server.servlet.context-path
 #            - PrefixPath=/demo-good
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      retries: 3
+    consumer:
+      auto-offset-reset: latest
+  zipkin:
+    sender:
+      type: kafka # 默认是 web
+    base-url: http://localhost:9411/
+  sleuth:
+    sampler:
+      # ProbabilityBasedSampler抽样策略
+      probability: 1.0 #采样比例,1.0表示100%，默认是0.1
+      # RateLimitingSampler抽样策略，设置了限速采集，spring.sleuth. sampler.probability属性值无效
+      rate: 100 # 每秒间隔接受的 trace量
+  main:
+    allow-bean-definition-overriding: true  # 因为将来会引入很多依赖, 难免有重名的 bean
   profiles:
     active: dev
 

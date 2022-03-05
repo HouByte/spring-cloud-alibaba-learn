@@ -38,6 +38,7 @@
             <groupId>cn.flowboot.e.commerce</groupId>
             <artifactId>e-commerce-mvc-config</artifactId>
         </dependency>
+
     </dependencies>
 
     <!--

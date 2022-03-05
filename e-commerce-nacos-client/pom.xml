@@ -33,6 +33,7 @@
             <groupId>cn.flowboot.e.commerce</groupId>
             <artifactId>e-commerce-mvc-config</artifactId>
         </dependency>
+
 <!--        &lt;!&ndash; 数据绑定 &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
