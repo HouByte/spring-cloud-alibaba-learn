@@ -2,12 +2,11 @@ package cn.flowboot.e.commerce.feign;
 
 import cn.flowboot.e.commerce.dto.Good;
 import cn.flowboot.e.commerce.dto.SearchGoodByIdsDto;
+import cn.flowboot.e.commerce.feign.fallback.GoodFeignClientFallback;
+import cn.flowboot.e.commerce.feign.fallback.GoodFeignClientFallbackFactory;
 import cn.flowboot.e.commerce.vo.CommonResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +17,8 @@ import java.util.List;
  * @author: Vincent Vic
  * @since: 2022/03/05
  */
-@FeignClient(contextId = "GoodFeignClient",value = "e-commerce-demo-good")
+//@FeignClient(contextId = "GoodFeignClient",value = "e-commerce-demo-good",fallback = GoodFeignClientFallback.class )
+@FeignClient(contextId = "GoodFeignClient",value = "e-commerce-demo-good",fallbackFactory = GoodFeignClientFallbackFactory.class )
 public interface GoodFeignClient {
 
     /**
@@ -28,5 +28,14 @@ public interface GoodFeignClient {
      * @return {@link List< Good> }
      */
     @RequestMapping(value = "/demo-good/good/search/list",method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    CommonResponse list(SearchGoodByIdsDto searchGoodByIdsDto);
+    CommonResponse list(@RequestBody SearchGoodByIdsDto searchGoodByIdsDto);
+
+    /**
+     * <h2> listByOrderNo - 查询订单商品<h2>
+     * version: 1.0 - 2022/3/7
+     * @param orderNo 订单号
+     * @return {@link List< Good> }
+     */
+    @RequestMapping(value = "/demo-good/good/list",method = RequestMethod.GET)
+    List<Good> listByOrderNo(@RequestParam String orderNo);
 }

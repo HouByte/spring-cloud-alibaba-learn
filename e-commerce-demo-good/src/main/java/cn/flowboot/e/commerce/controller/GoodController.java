@@ -1,15 +1,13 @@
 package cn.flowboot.e.commerce.controller;
 
+import cn.flowboot.e.commerce.annotation.IgnoreResponseAdvice;
 import cn.flowboot.e.commerce.dto.Good;
 import cn.flowboot.e.commerce.dto.SearchGoodByIdsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <h1></h1>
@@ -41,6 +39,24 @@ public class GoodController {
                 good.setId(id);
                 good.setName("good_"+id);
                 good.setPrice(new BigDecimal(id * 10));
+                list.add(good);
+            }
+        }
+        return list;
+    }
+
+    @IgnoreResponseAdvice
+    @GetMapping("/list")
+    public List<Good> listByOrderNo(@RequestParam String orderNo){
+
+        log.info("get Good list : {}" , orderNo);
+        List<Good> list = new ArrayList<>();
+        if (orderNo != null ) {
+            for (int i = 0; i < 5; i++) {
+                Good good = new Good();
+                good.setId(i);
+                good.setName("good_"+orderNo);
+                good.setPrice(new BigDecimal(new Random().nextInt(10000) ));
                 list.add(good);
             }
         }

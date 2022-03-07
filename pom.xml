@@ -21,6 +21,7 @@
         <module>e-commerce-gateway</module>
         <module>e-commerce-demo-order</module>
         <module>e-commerce-demo-good</module>
+        <module>e-commerce-hystrix-dashboard</module>
     </modules>
 
 

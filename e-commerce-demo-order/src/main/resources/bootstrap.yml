@@ -54,6 +54,8 @@ management:
 
 #Feign的相关配置
 feign:
+  hystrix:
+    enabled: true
   # 开启gzip压缩
   compression:
     request:

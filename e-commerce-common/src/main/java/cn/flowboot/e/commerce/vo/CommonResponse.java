@@ -41,6 +41,9 @@ public class CommonResponse<T> implements Serializable {
     private T data;
 
 
+    public boolean isSuccess(){
+        return SUCCESS_CODE == code;
+    }
     /**
      * <h2> build - 构建通用消息 - 全参数<h2>
      * version: 1.0 - 2022/3/2
