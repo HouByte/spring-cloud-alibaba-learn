@@ -38,4 +38,16 @@ public class GoodFeignClientFallback implements GoodFeignClient {
         log.warn("feign listByOrderNo fail");
         return Collections.emptyList();
     }
+
+    /**
+     * 减少商品库存
+     *
+     * @param goodId
+     * @param deduction
+     * @return
+     */
+    @Override
+    public boolean deductStock(Integer goodId, Integer deduction) {
+        return false;
+    }
 }

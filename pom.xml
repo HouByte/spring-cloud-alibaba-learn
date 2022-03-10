@@ -46,6 +46,10 @@
         <fastjson.version>1.2.78</fastjson.version>
         <!-- mybatis plus 依赖 -->
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <!-- mybatis plus 依赖 -->
+        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
+        <!-- mybatis plus 依赖 -->
+        <freemarker.version>2.3.30</freemarker.version>
         <!-- druid 依赖 -->
         <druid.version>1.2.6</druid.version>
         <!-- bitwalker 依赖 -->
@@ -167,6 +171,30 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <!-- velocity代码生成使用模板 -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>${velocity.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-collections</groupId>
+                        <artifactId>commons-collections</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--mp代码生成器-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
             <!-- 解析客户端操作系统、浏览器等 -->
             <dependency>

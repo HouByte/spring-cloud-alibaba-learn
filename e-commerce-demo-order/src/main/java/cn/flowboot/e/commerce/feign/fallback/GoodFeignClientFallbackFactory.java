@@ -35,6 +35,18 @@ public class GoodFeignClientFallbackFactory implements FallbackFactory<GoodFeign
             public List<Good> listByOrderNo(String orderNo) {
                 return Collections.emptyList();
             }
+
+            /**
+             * 减少商品库存
+             *
+             * @param goodId
+             * @param deduction
+             * @return
+             */
+            @Override
+            public boolean deductStock(Integer goodId, Integer deduction) {
+                return false;
+            }
         };
     }
 }

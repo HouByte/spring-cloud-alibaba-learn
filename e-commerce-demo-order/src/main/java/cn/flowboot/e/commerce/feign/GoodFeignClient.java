@@ -38,4 +38,13 @@ public interface GoodFeignClient {
      */
     @RequestMapping(value = "/demo-good/good/list",method = RequestMethod.GET)
     List<Good> listByOrderNo(@RequestParam String orderNo);
+
+    /**
+     * 减少商品库存
+     * @param goodId
+     * @param deduction
+     * @return
+     */
+    @GetMapping("/demo-good/store-good/deductStock")
+    boolean deductStock(@RequestParam("goodId") Integer goodId, @RequestParam("deduction") Integer deduction);
 }

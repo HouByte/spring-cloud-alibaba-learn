@@ -5,6 +5,20 @@ server:
 spring:
   application:
     name: e-commerce-demo-order
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/e-commerce?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+      initial-size: 8
+      max-active: 16
+      min-idle: 8
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
   cloud:
     nacos:
       #服务发现
@@ -32,9 +46,38 @@ spring:
           data-id: common.yaml # 配置文件名-Data Id
           group: DEFAULT_GROUP   # 默认为DEFAULT_GROUP
           refresh: true   # 是否动态刷新，默认为false
+    alibaba:
+      seata:
+        enabled: true
+        enable-auto-data-source-proxy: true #开启使用seata对数据源进行代理
+        #在nacos上查找seata的配置信息
+        tx-service-group: default_tx_group
+        registry:
+          type:
+          nacos:
+            application: seata-server
+            server-addr: localhost:8848
+            username: nacos
+            password: nacos
+        config:
+          type: nacos
+          nacos:
+            server-addr: localhost:8848
+            group: SEATA_GROUP #默认上传的组名
+            username: nacos
+            password: nacos
+            namespace: SEATA # seata配置所在的命名空间
+        service:
+          vgroupMapping :
+            default_tx_group: default
+          disable-global-transaction: false
+        client:
+          rm:
+            report-success-enable: false
 
   profiles:
     active: dev
+
 
 
 # 暴露端点
@@ -55,7 +98,7 @@ management:
 #Feign的相关配置
 feign:
   hystrix:
-    enabled: true
+    enabled: false
   # 开启gzip压缩
   compression:
     request:
