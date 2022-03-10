@@ -22,6 +22,7 @@
         <module>e-commerce-demo-order</module>
         <module>e-commerce-demo-good</module>
         <module>e-commerce-hystrix-dashboard</module>
+        <module>mq</module>
     </modules>
 
 
