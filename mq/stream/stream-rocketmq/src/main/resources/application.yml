@@ -1,0 +1,56 @@
+server:
+  port: 9591
+spring:
+  cloud:
+    stream:
+      #kafka:
+      #  binder:
+      #    brokers: 127.0.0.1:9092
+      #    auto-create-topics: true #如果设置为false，就不会自动创建Topic，你在使用之前需要手动创建好
+      # SpringCloud Stream + RocketMQ
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+          # 生成者group名称
+          group: rocketmq
+      # 开启 stream 分区支持
+      instanceCount: 1  # 消费者的总数
+      instanceIndex: 0  # 当前消费者的索引
+      bindings:
+        # 默认发送方
+        output:      # 这里用 Stream 给我们提供的默认 output 信道
+          destination: stream-rocketmq-client-default    # 消息发往的目的地, Kafka 中就是 Topic
+          content-type: text/plain    # 消息发送的格式, 接收端不用指定格式, 但是发送端要
+          # 消息分区
+          producer:
+            # partitionKeyExpression: payload.author  # 分区关键字, payload 指的是发送的对象, author 是对象中的属性
+            partitionCount: 1   # 分区大小
+            # 使用自定义的分区策略, 注释掉 partitionKeyExpression
+            partitionKeyExtractorName: streamPartitionKeyExtractorStrategy
+            partitionSelectorName: streamPartitionSelectorStrategy
+        # 默认接收方
+        input:      # 这里用 Stream 给我们提供的默认 input 信道
+          destination: stream-rocketmq-client-default
+          group: stream-rocketmq-client-default
+          # 消费者开启分区支持
+          consumer:
+            partitioned: true
+
+        # custom 发送方
+        customOutput:
+          destination: stream-rocketmq-client
+          content-type: text/plain
+        # custom 接收方
+        customInput:
+          destination: stream-rocketmq-client
+          group: stream-rocketmq-client
+
+  # spring-kafka 的配置
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      retries: 3
+    consumer:
+      auto-offset-reset: latest
+
+
