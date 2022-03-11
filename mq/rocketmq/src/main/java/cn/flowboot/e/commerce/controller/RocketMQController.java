@@ -62,6 +62,18 @@ public class RocketMQController {
         rocketMQProducer.sendMessageWithAll("RocketMQ","rocket",JSON.toJSONString(message));
     }
 
+    /**
+     * 发送延迟消息
+     * 延时消息等级分为18个：1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
+     * delayLevel对应延迟等级就是上面的时间 共18个等级
+     * rocketmq只能指定延迟等级而不能自定义延迟时间，如果想自定义需要阿里巴巴提供的企业版rocketmq要收费
+     */
+    @GetMapping("sendDelay")
+    public void sendDelay(){
+        // 延时消息等级分为18个：1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
+        rocketMQProducer.sendDelayMessage(JSON.toJSONString(message),4);
+
+    }
 
 
 }
