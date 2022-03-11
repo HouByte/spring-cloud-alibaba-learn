@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>E-commerce-cloud</artifactId>
+        <artifactId>mq</artifactId>
         <groupId>cn.flowboot.e.commerce</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mq</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>kafka</module>
-        <module>rocketmq</module>
-        <module>rabbitmq</module>
-    </modules>
+    <artifactId>rabbitmq</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -23,7 +17,20 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.flowboot.e.commerce</groupId>
+            <artifactId>e-commerce-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- 添加springboot对amqp的支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
 
     </dependencies>
-
 </project>

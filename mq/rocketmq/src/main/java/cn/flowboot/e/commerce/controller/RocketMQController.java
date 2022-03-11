@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("rocket-mq")
 public class RocketMQController {
 
-    private final ObjectMapper mapper;
     private final RocketMQProducer rocketMQProducer;
 
     private static final RocketMQMessage message = new RocketMQMessage(1, "RocketMQ");

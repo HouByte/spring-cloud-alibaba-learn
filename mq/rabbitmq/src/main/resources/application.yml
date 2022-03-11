@@ -1,0 +1,16 @@
+server:
+  port: 9391
+
+spring:
+  application:
+    name: rabbitmq
+  rabbitmq:
+    host: 127.0.0.1 #ip
+    port: 5672      #端口
+    username: guest #账号
+    password: guest #密码
+    addresses: 127.0.0.1:5672     #多个以逗号分隔，与host功能一样。
+    requestedHeartbeat: 60 #指定心跳超时，单位秒，0为不指定；默认60s
+
+
+
