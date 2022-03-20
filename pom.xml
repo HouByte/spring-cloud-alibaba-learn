@@ -23,6 +23,7 @@
         <module>e-commerce-demo-good</module>
         <module>e-commerce-hystrix-dashboard</module>
         <module>mq</module>
+        <module>e-commerce-sentinel-client</module>
     </modules>
 
 

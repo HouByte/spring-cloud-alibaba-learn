@@ -35,6 +35,12 @@ public class NacosClientController {
         return nacosClientService.getNacosClientInfo(serviceId);
     }
 
+    @GetMapping("/search/service/instance")
+    public List<ServiceInstance> searchNacosClientInfo(String serviceId){
+        log.info("request nacos client to get service instance info:[{}]",serviceId);
+        return nacosClientService.getNacosClientInfo(serviceId);
+    }
+
     @Value(value = "${flowboot.version}")
     private String version;
 

@@ -1,0 +1,64 @@
+server:
+  port: 8500
+  servlet:
+    context-path: /sentinel-client
+spring:
+  application:
+    name: e-commerce-sentinel-client
+  cloud:
+    nacos:
+      #服务发现
+      discovery:
+        enabled: true
+        server-addr: 127.0.0.1:8848
+        namespace: e-commerce-nacos-server
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+    sentinel:
+      # 配置 sentinel dashboard 地址
+      transport:
+        dashboard: 127.0.0.1:7777
+        port: 8719 # 会在应用对应的机器上启动一个 Http Server, 该 Server 会与 Sentinel 控制台做交互
+      datasource:
+        # 名称任意, 代表数据源
+        ds:
+          nacos:
+            # NacosDataSourceProperties.java 中定义
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: ${spring.application.name}-sentinel
+            namespace: ${spring.cloud.nacos.discovery.namespace}
+            groupId: DEFAULT_GROUP
+            data-type: json
+            # 规则类型: com.alibaba.cloud.sentinel.datasource.RuleType
+            # FlowRule 就是限流规则
+            rule-type: flow
+      # 服务启动直接建立心跳连接
+      eager: true
+
+  profiles:
+    active: dev
+
+
+# 暴露端点
+management:
+  health:
+    db:
+      enabled: false
+    mail:
+      enabled: false   # 这个最好必须配置，否则如果有Spring Boot Admin 不断检测的话，可能导致邮件不能发送成功
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+# 开启或关闭 @SentinelRestTemplate
+resttemplate:
+  sentinel:
+    enabled: true
+feign:
+  sentinel:
+    enabled: true

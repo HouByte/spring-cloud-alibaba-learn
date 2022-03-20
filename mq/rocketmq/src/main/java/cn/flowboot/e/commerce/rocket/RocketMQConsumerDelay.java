@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 /**
- * <h1>RocketMQ 消费者 Object</h1>
+ * <h1>RocketMQ 消费者 -对应延迟消费者</h1>
  *
  * @version 1.0
  * @author: Vincent Vic

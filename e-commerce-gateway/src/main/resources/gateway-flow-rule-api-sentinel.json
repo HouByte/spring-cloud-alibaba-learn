@@ -1,0 +1,14 @@
+[
+  {
+    "apiName": "nacos-client-api",
+    "predicateItems": [
+      {
+        "pattern": "/s/nacos-client/search/service/instance"
+      },
+      {
+        "pattern": "/n/service/instance/**",
+        "matchStrategy": 1
+      }
+    ]
+  }
+]
